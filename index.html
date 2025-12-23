@@ -5,61 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>BRU GTA - Enhanced</title>
 <footer><creator>INEZA AIME BRUNO</creator></footer>
-<style>
-  :root{
-    --bg:#0b0e13;
-    --panel:#0e141b;
-    --glass:rgba(12,16,22,.75);
-    --accent:#69a8ff;
-    --ok:#57d68d;
-    --warn:#ffb84d;
-    --bad:#ff6b6b
-  }
-  html,body{margin:0;height:100%;background:var(--bg);color:#e6edf3;font-family:Arial,sans-serif;overflow:hidden}
-  canvas{display:block;width:100vw;height:100vh}
-  
-  #hud{position:fixed;top:10px;right:10px;display:grid;gap:8px;min-width:240px;pointer-events:none;z-index:1000}
-  .card{pointer-events:auto;background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
-  .row{display:flex;justify-content:space-between;gap:12px;align-items:center}
-  .bar{height:12px;border-radius:10px;background:#1b2430;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
-  .bar>div{height:100%;background:linear-gradient(90deg,#46e,#4ee);width:100%;transition:width 0.3s ease}
-  .bar.ok>div{background:linear-gradient(90deg,#35d6a0,#5eefc3)}
-  .bar.warn>div{background:linear-gradient(90deg,#ffb84d,#ffe27a)}
-  .bar.bad>div{background:linear-gradient(90deg,#ff6b6b,#ff9a9a)}
-  
-  #timerDisplay{font-size:18px;font-weight:bold;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.5)}
-  #timeIndicator{display:flex;align-items:center;gap:8px;font-size:14px}
-  .time-icon{width:16px;height:16px;border-radius:50%;display:inline-block}
-  .day-icon{background:linear-gradient(135deg,#ffd700,#ff8c00);box-shadow:0 0 8px rgba(255,215,0,.4)}
-  .night-icon{background:linear-gradient(135deg,#4169e1,#191970);box-shadow:0 0 8px rgba(65,105,225,.4)}
-  
-  #crosshair{position:fixed;inset:0;pointer-events:none;display:grid;place-items:center;z-index:999}
-  #crosshair div{width:20px;height:20px;border:3px solid rgba(255,255,255,.9);border-radius:50%;box-shadow:0 0 12px rgba(255,255,255,.4)}
-  
-  #minimap{position:fixed;right:10px;bottom:10px;width:180px;height:180px;border:3px solid #fff;border-radius:12px;background:#000;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:1000}
-  
-  #controls{position:fixed;left:10px;bottom:10px;display:none;max-width:400px;z-index:1000}
-  
-  #gameover{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);color:#fff;align-items:center;justify-content:center;flex-direction:column;gap:20px;font-size:32px;pointer-events:auto;z-index:2000}
-  #gameover button{font-size:20px;padding:12px 24px;border-radius:12px;border:2px solid #556;cursor:pointer;background:#1a2230;color:#e6edf3;transition:all 0.3s ease}
-  #gameover button:hover{background:#2a3240;border-color:#69a8ff}
-  
-  #killFeed{position:fixed;top:10px;left:10px;max-width:300px;z-index:1000;pointer-events:none}
-  .kill-msg{background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:13px;opacity:0;animation:fadeInOut 3s ease-out forwards}
-  
-  @keyframes fadeInOut{
-    0%{opacity:0;transform:translateX(-20px)}
-    20%{opacity:1;transform:translateX(0)}
-    80%{opacity:1;transform:translateX(0)}
-    100%{opacity:0;transform:translateX(-20px)}
-  }
-  
-  kbd{background:#333;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid #555}
-  
-  #audioToggle{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:8px;cursor:pointer;font-size:12px;z-index:1000}
-  
-  #cheatMode{position:fixed;top:50%;left:10px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:8px;font-size:12px;z-index:1000;display:none}
-</style>
 </head>
 <body>
 <canvas id="c"></canvas>
@@ -117,6 +62,61 @@
   <div>Type: cargoandcome (car)</div>
   <input type="text" id="cheatInput" placeholder="Enter cheat..." style="margin-top:8px;padding:4px;background:#333;border:1px solid #666;color:#fff;border-radius:4px;">
 </div>
+<style>
+  :root{
+    --bg:#0b0e13;
+    --panel:#0e141b;
+    --glass:rgba(12,16,22,.75);
+    --accent:#69a8ff;
+    --ok:#57d68d;
+    --warn:#ffb84d;
+    --bad:#ff6b6b
+  }
+  html,body{margin:0;height:100%;background:var(--bg);color:#e6edf3;font-family:Arial,sans-serif;overflow:hidden}
+  canvas{display:block;width:100vw;height:100vh}
+  
+  #hud{position:fixed;top:10px;right:10px;display:grid;gap:8px;min-width:240px;pointer-events:none;z-index:1000}
+  .card{pointer-events:auto;background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+  .row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+  .bar{height:12px;border-radius:10px;background:#1b2430;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+  .bar>div{height:100%;background:linear-gradient(90deg,#46e,#4ee);width:100%;transition:width 0.3s ease}
+  .bar.ok>div{background:linear-gradient(90deg,#35d6a0,#5eefc3)}
+  .bar.warn>div{background:linear-gradient(90deg,#ffb84d,#ffe27a)}
+  .bar.bad>div{background:linear-gradient(90deg,#ff6b6b,#ff9a9a)}
+  
+  #timerDisplay{font-size:18px;font-weight:bold;color:#ff6b6b;text-shadow:0 0 8px rgba(255,107,107,.5)}
+  #timeIndicator{display:flex;align-items:center;gap:8px;font-size:14px}
+  .time-icon{width:16px;height:16px;border-radius:50%;display:inline-block}
+  .day-icon{background:linear-gradient(135deg,#ffd700,#ff8c00);box-shadow:0 0 8px rgba(255,215,0,.4)}
+  .night-icon{background:linear-gradient(135deg,#4169e1,#191970);box-shadow:0 0 8px rgba(65,105,225,.4)}
+  
+  #crosshair{position:fixed;inset:0;pointer-events:none;display:grid;place-items:center;z-index:999}
+  #crosshair div{width:20px;height:20px;border:3px solid rgba(255,255,255,.9);border-radius:50%;box-shadow:0 0 12px rgba(255,255,255,.4)}
+  
+  #minimap{position:fixed;right:10px;bottom:10px;width:180px;height:180px;border:3px solid #fff;border-radius:12px;background:#000;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:1000}
+  
+  #controls{position:fixed;left:10px;bottom:10px;display:none;max-width:400px;z-index:1000}
+  
+  #gameover{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);color:#fff;align-items:center;justify-content:center;flex-direction:column;gap:20px;font-size:32px;pointer-events:auto;z-index:2000}
+  #gameover button{font-size:20px;padding:12px 24px;border-radius:12px;border:2px solid #556;cursor:pointer;background:#1a2230;color:#e6edf3;transition:all 0.3s ease}
+  #gameover button:hover{background:#2a3240;border-color:#69a8ff}
+  
+  #killFeed{position:fixed;top:10px;left:10px;max-width:300px;z-index:1000;pointer-events:none}
+  .kill-msg{background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:13px;opacity:0;animation:fadeInOut 3s ease-out forwards}
+  
+  @keyframes fadeInOut{
+    0%{opacity:0;transform:translateX(-20px)}
+    20%{opacity:1;transform:translateX(0)}
+    80%{opacity:1;transform:translateX(0)}
+    100%{opacity:0;transform:translateX(-20px)}
+  }
+  
+  kbd{background:#333;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid #555}
+  
+  #audioToggle{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:8px;cursor:pointer;font-size:12px;z-index:1000}
+  
+  #cheatMode{position:fixed;top:50%;left:10px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:8px;font-size:12px;z-index:1000;display:none}
+</style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -2098,3 +2098,4 @@
 </script>
 </body>
 </html>
+
